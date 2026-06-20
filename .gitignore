@@ -49,3 +49,14 @@ next-env.d.ts
 *.ntvs*
 *.njsproj
 *.sln
+
+# ===== python / backend =====
+backend/venv/
+venv/
+**/__pycache__/
+*.pyc
+backend/.env
+backend/model_output/
+*.bin
+*.pt
+*.safetensors
