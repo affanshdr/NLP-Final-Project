@@ -10,6 +10,8 @@ export function ContainerScroll({ children }: { children: React.ReactNode }) {
     offset: ["start end", "end start"],
   });
 
+  // Haluskan dulu progress scroll-nya (kunci anti "lompat-lompat" saat
+  // dipakai bareng Lenis).
   const smoothProgress = useSpring(scrollYProgress, {
     stiffness: 120,
     damping: 30,
@@ -17,8 +19,8 @@ export function ContainerScroll({ children }: { children: React.ReactNode }) {
     restDelta: 0.001,
   });
 
-  // Membesar lebih cepat per scroll (tetap mulus).
-  const scale = useTransform(scrollYProgress, [0, 0.52], [0.55, 0.9]);
+  // Membesar lebih cepat per scroll, tapi MULUS -> pakai smoothProgress.
+  const scale = useTransform(smoothProgress, [0, 0.52], [0.55, 0.9]);
 
   const cardStyle = {
     scale,

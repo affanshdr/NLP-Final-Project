@@ -27,32 +27,32 @@ const GripIcon = () => (
 
 const appConcepts = [
   {
-    text: "Frontend dibangun dengan Next.js dan React.",
+    text: "Tampilan depan web dibangun menggunakan Next.js dan React.",
     name: "Next.js",
     role: "Frontend Framework",
   },
   {
-    text: "API Route menghubungkan frontend ke layanan koreksi di backend.",
+    text: "API Route menghubungkan frontend dengan layanan koreksi backend.",
     name: "API Routes",
     role: "Jembatan Backend",
   },
   {
-    text: "Styling menggunakan plain CSS yang ringan tanpa dependensi tambahan.",
+    text: "Styling menggunakan CSS murni tanpa dependensi tambahan.",
     name: "Plain CSS",
     role: "Styling",
   },
   {
-    text: "Antarmuka disusun dari komponen React yang bersih.",
+    text: "Antarmuka disusun menggunakan komponen React yang rapi.",
     name: "Komponen React",
     role: "UI Modular",
   },
   {
-    text: "Animasi halus pada hero, kartu, dan transisi memakai framer-motion.",
-    name: "framer-motion",
+    text: "Animasi dan transisi halaman menggunakan framer motion.",
+    name: "framer motion",
     role: "Animasi",
   },
   {
-    text: "Perpindahan antara halaman Beranda dan Koreksi memakai routing Next.js.",
+    text: "Navigasi antar halaman menggunakan fitur routing Next.js.",
     name: "Navigasi",
     role: "Routing Halaman",
   },
@@ -60,32 +60,32 @@ const appConcepts = [
 
 const modelConcepts = [
   {
-    text: "Model mT5 melakukan koreksi ejaan dan tata bahasa berbasis Transformer.",
-    name: "mT5",
+    text: "IndoT5 mengoreksi ejaan dan tata bahasa berbasis Transformer.",
+    name: "IndoT5",
     role: "Seq2Seq Transformer",
   },
   {
-    text: "Model di-fine-tune pada data bahasa Indonesia agar hasilnya relevan.",
-    name: "Fine-Tuning",
+    text: "Model di fine tune menggunakan data teks bahasa Indonesia.",
+    name: "Fine Tuning",
     role: "Pelatihan",
   },
   {
-    text: "Kualitas koreksi diukur dengan metrik seperti BLEU dan WER.",
+    text: "Kualitas hasil koreksi diukur menggunakan metrik BLEU dan WER.",
     name: "Evaluasi",
     role: "BLEU & WER",
   },
   {
-    text: "Teks dipecah menjadi token memakai SentencePiece sebelum diproses model.",
+    text: "Teks dipecah menjadi token menggunakan SentencePiece.",
     name: "Tokenisasi",
     role: "SentencePiece",
   },
   {
-    text: "Permintaan koreksi dikirim ke endpoint dan dikembalikan sebagai teks yang diperbaiki.",
+    text: "Teks dikirim ke endpoint dan dikembalikan dalam bentuk yang sudah benar.",
     name: "Inferensi",
-    role: "POST /correct",
+    role: "POST endpoint",
   },
   {
-    text: "Model belajar dari korpus bahasa Indonesia untuk memahami pola kesalahan umum.",
+    text: "Model mempelajari pola kesalahan umum dari korpus bahasa Indonesia.",
     name: "Dataset",
     role: "Korpus Indonesia",
   },
@@ -150,13 +150,8 @@ export default function TentangSection() {
           {/* Sisi hitam (dasar) — teks kiri, kartu condong ke tengah */}
           <div className="cmp-panel cmp-panel--dark">
             <div className="cmp-text">
-              <span className="cmp-badge cmp-badge--light">Aplikasi</span>
-              <h2 className="cmp-heading">Ejaku, koreksi dalam sekali klik</h2>
-              <p className="cmp-desc">
-                Antarmuka web ringan berbasis Next.js. Tempel teks atau unggah
-                dokumen, lalu Ejaku merapikan ejaan &amp; tata bahasa Indonesia
-                secara otomatis.
-              </p>
+              <span className="cmp-badge cmp-badge--light">Web UI</span>
+              <h2 className="cmp-heading">Web Interface</h2>
             </div>
             <div className="cmp-cards">
               <TestimonialsColumn
@@ -196,12 +191,7 @@ export default function TentangSection() {
             </div>
             <div className="cmp-text cmp-text--right">
               <span className="cmp-badge cmp-badge--dark">Model</span>
-              <h2 className="cmp-heading">Ditenagai mT5 berbasis Transformer</h2>
-              <p className="cmp-desc">
-                Model mT5 yang di-fine-tune pada korpus bahasa Indonesia untuk
-                mengoreksi ejaan dan tata bahasa secara kontekstual, bukan
-                sekadar mencocokkan kata.
-              </p>
+              <h2 className="cmp-heading">Core Engine</h2>
             </div>
           </div>
 

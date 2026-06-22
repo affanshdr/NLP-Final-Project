@@ -1,3 +1,6 @@
+"use client";
+
+import { useMemo, useState } from "react";
 import DocViewer from "./DocViewer";
 import DiffSide from "./DiffSide";
 import type { DiffToken, StoredFileMeta } from "@/lib/types";
@@ -12,8 +15,36 @@ interface Props {
 }
 
 export default function ComparePanel(props: Props) {
+  const [focusGroup, setFocusGroup] = useState<number | null>(null);
+
+  // Beri ID kelompok ke tiap token. Satu "perubahan" = sekumpulan token
+  // delete+insert yang berurutan (mis. "aq" -> "aku" jadi satu group).
+  const groups = useMemo(() => {
+    const result: Array<number | null> = [];
+    let current = -1;
+    let inGroup = false;
+    for (const t of props.diffTokens) {
+      if (t.type === "equal") {
+        result.push(null);
+        inGroup = false;
+      } else {
+        if (!inGroup) {
+          current += 1;
+          inGroup = true;
+        }
+        result.push(current);
+      }
+    }
+    return result;
+  }, [props.diffTokens]);
+
+  const focusing = focusGroup !== null;
+
   return (
-    <div className="compare-panel">
+    <div
+      className={focusing ? "compare-panel result-focusing" : "compare-panel"}
+      onClick={() => setFocusGroup(null)}
+    >
       <div className="compare-col">
         <span className="compare-col__label">Teks Asli</span>
         <div className="compare-body">
@@ -24,7 +55,13 @@ export default function ComparePanel(props: Props) {
               fallbackText={props.original}
             />
           ) : props.changed ? (
-            <DiffSide tokens={props.diffTokens} side="original" />
+            <DiffSide
+              tokens={props.diffTokens}
+              groups={groups}
+              side="original"
+              focusGroup={focusGroup}
+              onFocusGroup={setFocusGroup}
+            />
           ) : (
             <p className="diff">{props.original}</p>
           )}
@@ -34,7 +71,13 @@ export default function ComparePanel(props: Props) {
         <span className="compare-col__label">Hasil Koreksi</span>
         <div className="compare-body">
           {props.changed ? (
-            <DiffSide tokens={props.diffTokens} side="corrected" />
+            <DiffSide
+              tokens={props.diffTokens}
+              groups={groups}
+              side="corrected"
+              focusGroup={focusGroup}
+              onFocusGroup={setFocusGroup}
+            />
           ) : (
             <p className="no-change">Tidak ditemukan kesalahan. 🎉</p>
           )}

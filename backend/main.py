@@ -125,7 +125,7 @@ async def correct_text(req: CorrectionRequest):
             
             # mT5 expects input text to be processed
             # Adjust input template if your fine-tuned model expects specific prompts/prefixes (e.g. "koreksi: <text>")
-            prefix = "koreksi: "
+            prefix = "perbaiki: "
             input_text = prefix + text
             
             device = next(model.parameters()).device

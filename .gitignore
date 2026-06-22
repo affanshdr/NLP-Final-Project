@@ -1,6 +1,6 @@
 # ===== dependencies =====
 /node_modules
-/.pnp
+.pnp
 .pnp.js
 .pnp.cjs
 .yarn/install-state.gz
@@ -56,7 +56,13 @@ venv/
 **/__pycache__/
 *.pyc
 backend/.env
+
+# model (folder serving + bobot model — JANGAN di-commit, ukurannya besar)
+backend/model/
 backend/model_output/
 *.bin
 *.pt
-*.safetensors
+*.safetensors
+*.h5
+*.onnx
+*.ckpt

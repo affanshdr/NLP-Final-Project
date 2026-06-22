@@ -1,7 +1,7 @@
 import BackgroundPaths from "@/components/hero-section/BackgroundPaths";
 import AnimatedTitle from "@/components/hero-section/AnimatedTitle";
 import AnimatedSubtitle from "@/components/hero-section/AnimatedSubtitle";
-import InputSection from "@/components/trash/InputSection";
+import InputSection from "@/components/hero-section/InputSection";
 
 export default function Hero() {
   return (

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 interface SiteNavbarProps {
@@ -8,12 +9,13 @@ interface SiteNavbarProps {
 }
 
 const navItems = [
-  { name: "Beranda", link: "/" },
-  { name: "Tentang", link: "/#tentang" },
-  { name: "Tim", link: "/#tim" },
+  { name: "Beranda", link: "/", hash: "" },
+  { name: "Tentang", link: "/#tentang", hash: "tentang" },
+  { name: "Tim", link: "/#tim", hash: "tim" },
 ];
 
 export default function SiteNavbar({ back = false }: SiteNavbarProps) {
+  const pathname = usePathname();
   const [hidden, setHidden] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -37,6 +39,28 @@ export default function SiteNavbar({ back = false }: SiteNavbarProps) {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Saat sudah di halaman beranda, lakukan smooth-scroll manual.
+  // (Next.js <Link> tidak men-scroll untuk navigasi hash di halaman yang sama.)
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    item: (typeof navItems)[number]
+  ) => {
+    setOpen(false);
+    if (pathname !== "/") return; // beda halaman -> biarkan <Link> navigasi normal
+
+    e.preventDefault();
+    if (item.hash) {
+      const el = document.getElementById(item.hash);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth" });
+        window.history.replaceState(null, "", `/#${item.hash}`);
+      }
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      window.history.replaceState(null, "", "/");
+    }
+  };
+
   return (
     <nav className={`site-nav${hidden ? " is-hidden" : ""}`}>
       <div className="site-nav__inner">
@@ -47,7 +71,12 @@ export default function SiteNavbar({ back = false }: SiteNavbarProps) {
         {/* Menu tengah (desktop) */}
         <div className="site-nav__links">
           {navItems.map((item) => (
-            <Link key={item.link} href={item.link} className="site-nav__link">
+            <Link
+              key={item.link}
+              href={item.link}
+              className="site-nav__link"
+              onClick={(e) => handleNavClick(e, item)}
+            >
               {item.name}
             </Link>
           ))}
@@ -84,7 +113,7 @@ export default function SiteNavbar({ back = false }: SiteNavbarProps) {
               key={item.link}
               href={item.link}
               className="site-nav__mobile-link"
-              onClick={() => setOpen(false)}
+              onClick={(e) => handleNavClick(e, item)}
             >
               {item.name}
             </Link>
