@@ -26,11 +26,9 @@ export default function SiteNavbar({ back = false }: SiteNavbarProps) {
       if (y < 80) {
         setHidden(false);
       } else if (y > lastY + 4) {
-        // scroll turun -> sembunyikan
         setHidden(true);
         setOpen(false);
       } else if (y < lastY - 4) {
-        // scroll naik -> tampilkan
         setHidden(false);
       }
       lastY = y;
@@ -39,14 +37,12 @@ export default function SiteNavbar({ back = false }: SiteNavbarProps) {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Saat sudah di halaman beranda, lakukan smooth-scroll manual.
-  // (Next.js <Link> tidak men-scroll untuk navigasi hash di halaman yang sama.)
   const handleNavClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
     item: (typeof navItems)[number]
   ) => {
     setOpen(false);
-    if (pathname !== "/") return; // beda halaman -> biarkan <Link> navigasi normal
+    if (pathname !== "/") return;
 
     e.preventDefault();
     if (item.hash) {
@@ -68,7 +64,6 @@ export default function SiteNavbar({ back = false }: SiteNavbarProps) {
           Ejaku<span className="site-nav__logo-accent">.id</span>
         </Link>
 
-        {/* Menu tengah (desktop) */}
         <div className="site-nav__links">
           {navItems.map((item) => (
             <Link
@@ -82,7 +77,6 @@ export default function SiteNavbar({ back = false }: SiteNavbarProps) {
           ))}
         </div>
 
-        {/* Aksi kanan (desktop) */}
         <div className="site-nav__right">
           {back && (
             <Link href="/" className="site-nav__back">
@@ -94,7 +88,6 @@ export default function SiteNavbar({ back = false }: SiteNavbarProps) {
           </Link>
         </div>
 
-        {/* Tombol hamburger (mobile) */}
         <button
           type="button"
           className="site-nav__toggle"
@@ -105,7 +98,6 @@ export default function SiteNavbar({ back = false }: SiteNavbarProps) {
         </button>
       </div>
 
-      {/* Menu mobile */}
       {open && (
         <div className="site-nav__mobile">
           {navItems.map((item) => (

@@ -14,7 +14,6 @@ export function isSupported(fileName: string): boolean {
   return (ACCEPTED_EXT as string[]).includes(getExt(fileName));
 }
 
-// Ekstraksi teks dilakukan sepenuhnya di sisi browser (client-side).
 export async function extractText(file: File): Promise<string> {
   const ext = getExt(file.name);
   switch (ext) {

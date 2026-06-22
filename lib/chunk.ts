@@ -6,7 +6,6 @@ export interface ChunkLimitResult {
 const MAX_SENTENCES = 30;
 const MAX_CHARS = 5000;
 
-// Pecah teks menjadi kalimat berdasarkan tanda . ! ? dan baris baru.
 export function splitSentences(text: string): string[] {
   const normalized = text.replace(/\r\n/g, "\n").trim();
   if (!normalized) return [];
@@ -16,7 +15,6 @@ export function splitSentences(text: string): string[] {
     .filter((s) => s.length > 0);
 }
 
-// Terapkan batas aman untuk demo (hindari terlalu banyak request).
 export function limitForDemo(text: string): ChunkLimitResult {
   let truncated = false;
   let working = text;

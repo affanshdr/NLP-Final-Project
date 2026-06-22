@@ -3,8 +3,7 @@ import type { StoredFileMeta } from "./types";
 const TEXT_KEY = "gec:inputText";
 const META_KEY = "gec:fileMeta";
 
-// File asli disimpan di memori modul. Karena navigasi Next.js bersifat
-// client-side (SPA), nilai ini bertahan saat pindah dari Beranda ke /koreksi.
+// File asli disimpan di memori modul agar bertahan saat navigasi client-side.
 let inMemoryFile: File | null = null;
 
 export function setInputText(text: string): void {
@@ -17,10 +16,7 @@ export function getInputText(): string | null {
   return sessionStorage.getItem(TEXT_KEY);
 }
 
-export function setInputFile(
-  file: File | null,
-  meta: StoredFileMeta | null,
-): void {
+export function setInputFile(file: File | null, meta: StoredFileMeta | null): void {
   inMemoryFile = file;
   if (typeof window === "undefined") return;
   if (meta) sessionStorage.setItem(META_KEY, JSON.stringify(meta));

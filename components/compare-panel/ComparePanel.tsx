@@ -17,8 +17,7 @@ interface Props {
 export default function ComparePanel(props: Props) {
   const [focusGroup, setFocusGroup] = useState<number | null>(null);
 
-  // Beri ID kelompok ke tiap token. Satu "perubahan" = sekumpulan token
-  // delete+insert yang berurutan (mis. "aq" -> "aku" jadi satu group).
+  // Kelompokkan token delete+insert berurutan menjadi satu group ID.
   const groups = useMemo(() => {
     const result: Array<number | null> = [];
     let current = -1;

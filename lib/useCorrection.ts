@@ -2,18 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import {
-  getInputText,
-  getInputFile,
-  getInputFileMeta,
-} from "@/lib/session";
+import { getInputText, getInputFile, getInputFileMeta } from "@/lib/session";
 import { wordDiff, hasChanges } from "@/lib/diff";
 import { limitForDemo } from "@/lib/chunk";
-import type {
-  CorrectionResponse,
-  DiffToken,
-  StoredFileMeta,
-} from "@/lib/types";
+import type { CorrectionResponse, DiffToken, StoredFileMeta } from "@/lib/types";
 
 export type CorrectionState =
   | { phase: "loading"; progress?: string }
@@ -36,7 +28,6 @@ export function useCorrection() {
 
   useEffect(() => {
     const text = getInputText();
-    // Edge case: /koreksi dibuka tanpa teks input -> kembali ke Beranda.
     if (!text || !text.trim()) {
       router.replace("/");
       return;
@@ -55,10 +46,7 @@ export function useCorrection() {
       let confidenceSum = 0;
 
       for (let i = 0; i < usable.length; i++) {
-        setState({
-          phase: "loading",
-          progress: `Mengoreksi ${i + 1}/${usable.length} bagian…`,
-        });
+        setState({ phase: "loading", progress: `Mengoreksi ${i + 1}/${usable.length} bagian…` });
         const res = await fetch("/api/correct", {
           method: "POST",
           headers: { "Content-Type": "application/json" },

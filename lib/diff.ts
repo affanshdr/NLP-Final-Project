@@ -1,6 +1,5 @@
 import type { DiffToken } from "./types";
 
-// Tokenisasi: pisahkan kata dan whitespace agar teks bisa direkonstruksi utuh.
 function tokenize(text: string): string[] {
   return text.match(/\s+|[^\s]+/g) ?? [];
 }
@@ -14,7 +13,7 @@ function push(tokens: DiffToken[], type: DiffToken["type"], value: string) {
   }
 }
 
-// Diff kata-per-kata berbasis Longest Common Subsequence (LCS).
+// Diff kata-per-kata berbasis LCS.
 export function wordDiff(original: string, corrected: string): DiffToken[] {
   const a = tokenize(original);
   const b = tokenize(corrected);

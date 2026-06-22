@@ -12,7 +12,6 @@ type Member = {
   gradient: [string, string];
 };
 
-// Berapa "layar penuh" scroll untuk SETIAP anggota.
 const SCROLL_PER_MEMBER = 3;
 
 const MEMBERS: Member[] = [
@@ -49,12 +48,7 @@ export default function TimSection() {
     const texts = textRefs.current.filter(Boolean) as HTMLDivElement[];
     if (!pinRef.current || cards.length === 0) return;
 
-    // Skala kartu saat "maju penuh".
     const FORWARD_SCALE = 1.5;
-
-    // ---------------------------------------------------------------------
-    // TIMELINE KARTU (zoom kiri bergiliran)
-    // ---------------------------------------------------------------------
     let tl: gsap.core.Timeline | null = null;
 
     const build = () => {
@@ -71,13 +65,7 @@ export default function TimSection() {
       const leftX = -window.innerWidth * 0.22;
 
       cards.forEach((card, i) => {
-        gsap.set(card, {
-          x: restX[i],
-          y: 0,
-          scale: 1,
-          autoAlpha: 1,
-          zIndex: 1,
-        });
+        gsap.set(card, { x: restX[i], y: 0, scale: 1, autoAlpha: 1, zIndex: 1 });
       });
       gsap.set(texts, { autoAlpha: 0, x: 40 });
       gsap.set(headRef.current, { autoAlpha: 1 });
@@ -86,8 +74,7 @@ export default function TimSection() {
         scrollTrigger: {
           trigger: pinRef.current,
           start: "top top",
-          end: () =>
-            "+=" + window.innerHeight * SCROLL_PER_MEMBER * cards.length,
+          end: () => "+=" + window.innerHeight * SCROLL_PER_MEMBER * cards.length,
           scrub: 1,
           pin: pinRef.current,
           invalidateOnRefresh: true,
@@ -113,9 +100,7 @@ export default function TimSection() {
     build();
 
     const onLoad = () => ScrollTrigger.refresh();
-    const imgs = Array.from(
-      pinRef.current.querySelectorAll("img"),
-    ) as HTMLImageElement[];
+    const imgs = Array.from(pinRef.current.querySelectorAll("img")) as HTMLImageElement[];
     imgs.forEach((img) => {
       if (img.complete) return;
       img.addEventListener("load", onLoad, { once: true });
@@ -157,9 +142,7 @@ export default function TimSection() {
           return (
             <CometCard
               key={m.name}
-              ref={(el) => {
-                cardRefs.current[i] = el;
-              }}
+              ref={(el) => { cardRefs.current[i] = el; }}
               className="tm-card"
             >
               {m.photo ? (
@@ -174,9 +157,7 @@ export default function TimSection() {
         {MEMBERS.map((m, i) => (
           <div
             key={m.name}
-            ref={(el) => {
-              textRefs.current[i] = el;
-            }}
+            ref={(el) => { textRefs.current[i] = el; }}
             className="tm-text"
           >
             <h3>{m.name}</h3>
